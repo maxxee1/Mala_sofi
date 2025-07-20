@@ -3,79 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Malla Data Science UC</title>
-  <style>
-    body {
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-      background-color: #fffbe6;
-      padding: 2rem;
-      color: #222;
-    }
-
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-
-    .checkbox-container {
-      margin-bottom: 1rem;
-    }
-
-    #resetAll {
-      padding: 0.7rem 1.5rem;
-      background-color: #ff3c83;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-
-    #resetAll:hover {
-      background-color: #e52e70;
-    }
-  </style>
+  <title>Malla Interactiva - Ciencia de Datos 📊</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>📝 Mi Checklist caótico para sobrevivir</h1>
-
-  <div class="checkbox-container">
-    <label><input type="checkbox" id="tarea1" /> Llorar un rato 😭</label><br />
-    <label><input type="checkbox" id="tarea2" /> Sobrevivir el día ✨</label><br />
-    <label><input type="checkbox" id="tarea3" /> Ignorar mis responsabilidades 💅</label><br />
-    <label><input type="checkbox" id="tarea4" /> Volver a llorar 🫠</label><br />
+  <h1>Malla Ciencia de Datos 💾🧠💫</h1>
+  <div id="malla">
+    <!-- xd -->
   </div>
 
-  <button id="resetAll">🔄 Reiniciar todo porque colapsé</button>
-
-  <script>
-    // ---------- Guardado y carga de progreso usando localStorage ----------
-    document.addEventListener('DOMContentLoaded', () => {
-      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-      const savedState = JSON.parse(localStorage.getItem('checkboxState')) || {};
-
-      // Cargar estados guardados
-      checkboxes.forEach(cb => {
-        if (savedState[cb.id]) {
-          cb.checked = true;
-        }
-
-        cb.addEventListener('change', () => {
-          savedState[cb.id] = cb.checked;
-          localStorage.setItem('checkboxState', JSON.stringify(savedState));
-        });
-      });
-
-      // Botón de reiniciar
-      const resetBtn = document.getElementById('resetAll');
-      if (resetBtn) {
-        resetBtn.addEventListener('click', () => {
-          localStorage.removeItem('checkboxState');
-          checkboxes.forEach(cb => cb.checked = false);
-        });
-      }
-    });
-  </script>
+  <script src="malla.js"></script>
 </body>
 </html>
