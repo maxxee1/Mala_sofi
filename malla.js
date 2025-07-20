@@ -100,6 +100,8 @@ function renderMalla() {
 
     container.appendChild(semDiv);
   });
+
+  renderResetButton(); // ✨ renderizamos el botoncito del caos
 }
 
 function toggleRamo(codigo) {
@@ -110,6 +112,46 @@ function toggleRamo(codigo) {
   }
   localStorage.setItem("ramos-completados", JSON.stringify([...completados]));
   renderMalla();
+}
+
+function renderResetButton() {
+  if (document.getElementById("reset-btn")) return; // no lo dupliquemos plis
+
+  const btn = document.createElement("button");
+  btn.id = "reset-btn";
+  btn.textContent = "🔥 Reiniciar todo desde cero";
+  btn.style.position = "fixed";
+  btn.style.bottom = "20px";
+  btn.style.right = "20px";
+  btn.style.padding = "12px 20px";
+  btn.style.fontSize = "16px";
+  btn.style.borderRadius = "8px";
+  btn.style.border = "none";
+  btn.style.backgroundColor = "#e11d48";
+  btn.style.color = "white";
+  btn.style.cursor = "pointer";
+  btn.style.boxShadow = "0 4px 10px rgba(0,0,0,0.3)";
+  btn.style.zIndex = "999";
+
+  btn.addEventListener("mouseenter", () => {
+    btn.style.backgroundColor = "#be123c";
+    btn.style.transform = "scale(1.05)";
+  });
+
+  btn.addEventListener("mouseleave", () => {
+    btn.style.backgroundColor = "#e11d48";
+    btn.style.transform = "scale(1)";
+  });
+
+  btn.addEventListener("click", () => {
+    const confirmacion = confirm("¿Estás segurx? Esto es como formatear tu cora y tu malla. 😭");
+    if (confirmacion) {
+      localStorage.clear();
+      location.reload();
+    }
+  });
+
+  document.body.appendChild(btn);
 }
 
 renderMalla();
