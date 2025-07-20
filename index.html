@@ -1,17 +1,432 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Malla Interactiva - Ciencia de Datos UC</title>
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Malla Interactiva de Ramos - Táchalos 🔥</title>
+<style>
+  body {
+    background: #111;
+    color: #eee;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 1rem;
+    max-width: 900px;
+    margin: auto;
+  }
+  h1, h2 {
+    text-align: center;
+    color: #ffde59;
+    text-shadow: 0 0 8px #ffde59aa;
+  }
+  .semester {
+    margin-bottom: 2.5rem;
+    border: 2px solid #3D5300;
+    padding: 1rem;
+    border-radius: 12px;
+    background: #1b1b1b;
+  }
+  .course {
+    display: flex;
+    align-items: center;
+    margin: 0.6rem 0;
+    cursor: pointer;
+    user-select: none;
+  }
+  .course input[type="checkbox"] {
+    display: none;
+  }
+  .custom-checkbox {
+    width: 24px;
+    height: 24px;
+    border: 3px solid #ABBA7C;
+    border-radius: 5px;
+    margin-right: 1rem;
+    position: relative;
+    transition: 0.2s ease;
+  }
+  .course input[type="checkbox"]:checked + .custom-checkbox {
+    background: #FFE31A;
+    border-color: #FFE31A;
+  }
+  .custom-checkbox::after {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    width: 8px;
+    height: 15px;
+    border: solid #111;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+    opacity: 0;
+    transition: 0.2s ease;
+  }
+  .course input[type="checkbox"]:checked + .custom-checkbox::after {
+    opacity: 1;
+  }
+  .course label {
+    flex-grow: 1;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #ABBA7C;
+  }
+  .course.locked label {
+    color: #555;
+    text-decoration: line-through;
+    cursor: not-allowed;
+  }
+  .course.locked .custom-checkbox {
+    border-color: #444;
+    background: #222;
+  }
+  .footer-note {
+    text-align: center;
+    margin-top: 3rem;
+    font-size: 0.9rem;
+    color: #888;
+  }
+  @media (max-width:600px){
+    .course label {
+      font-size: 0.85rem;
+    }
+  }
+</style>
 </head>
 <body>
+  <h1>Malla Interactiva de Ramos 🔥</h1>
+  <p style="text-align:center; color:#aaa; font-style:italic;">Marca los ramos que aprobaste y desbloquea los siguientes 🚀</p>
 
-  <div id="malla"></div>
+  <div id="malla">
 
-  <button id="reset-btn"> Reiniciar Malla</button>
+    <!-- SEMESTRE 1 -->
+    <section class="semester" data-semester="1">
+      <h2>1ER SEMESTRE</h2>
+      <div class="course" data-code="IC1103" data-prereq="">
+        <input type="checkbox" id="IC1103" />
+        <div class="custom-checkbox"></div>
+        <label for="IC1103">[IC1103] INTRODUCCIÓN A LA PROGRAMACIÓN</label>
+      </div>
+      <div class="course" data-code="MAT1107" data-prereq="">
+        <input type="checkbox" id="MAT1107" />
+        <div class="custom-checkbox"></div>
+        <label for="MAT1107">[MAT 1107] INTRODUCCIÓN AL CÁLCULO</label>
+      </div>
+      <div class="course" data-code="MAT1207" data-prereq="">
+        <input type="checkbox" id="MAT1207" />
+        <div class="custom-checkbox"></div>
+        <label for="MAT1207">[MAT1207] INTRODUCCIÓN AL ÁLGEBRA Y GEOMETRÍA</label>
+      </div>
+      <div class="course" data-code="MAT0007" data-prereq="">
+        <input type="checkbox" id="MAT0007" />
+        <div class="custom-checkbox"></div>
+        <label for="MAT0007">[MAT0007] TALLER DE MATEMÁTICAS PARA ESTADISTICA</label>
+      </div>
+      <div class="course" data-code="OFG_FIL2001" data-prereq="">
+        <input type="checkbox" id="OFG_FIL2001" />
+        <div class="custom-checkbox"></div>
+        <label for="OFG_FIL2001">OFG (FIL2001)</label>
+      </div>
+    </section>
 
-  <script src="script.js"></script>
+    <!-- SEMESTRE 2 -->
+    <section class="semester" data-semester="2">
+      <h2>2DO SEMESTRE</h2>
+      <div class="course" data-code="IIC2233" data-prereq="IC1103">
+        <input type="checkbox" id="IIC2233" />
+        <div class="custom-checkbox"></div>
+        <label for="IIC2233">[IIC2233] PROGRAMACIÓN AVANZADA</label>
+      </div>
+      <div class="course" data-code="MAT1610" data-prereq="MAT1107">
+        <input type="checkbox" id="MAT1610" />
+        <div class="custom-checkbox"></div>
+        <label for="MAT1610">[MAT1610] CÁLCULO I</label>
+      </div>
+      <div class="course" data-code="IMT2210" data-prereq="IC1103,MAT1610,MAT1207">
+        <input type="checkbox" id="IMT2210" />
+        <div class="custom-checkbox"></div>
+        <label for="IMT2210">[IMT2210] ÁLGEBRA LINEAL PARA CIENCIA DE DATOS</label>
+      </div>
+      <div class="course" data-code="IMT2200" data-prereq="IC1103,MAT1207">
+        <input type="checkbox" id="IMT2200" />
+        <div class="custom-checkbox"></div>
+        <label for="IMT2200">[IMT2200] INTRODUCCIÓN A CIENCIA DE DATOS</label>
+      </div>
+      <div class="course" data-code="OFG_TEOLOGICO" data-prereq="">
+        <input type="checkbox" id="OFG_TEOLOGICO" />
+        <div class="custom-checkbox"></div>
+        <label for="OFG_TEOLOGICO">OFG (TEOLOGICO)</label>
+      </div>
+    </section>
+
+    <!-- SEMESTRE 3 -->
+    <section class="semester" data-semester="3">
+      <h2>3ER SEMESTRE</h2>
+      <div class="course" data-code="IMT2220" data-prereq="MAT1610">
+        <input type="checkbox" id="IMT2220" />
+        <div class="custom-checkbox"></div>
+        <label for="IMT2220">[IMT2220] CÁLCULO PARA CIENCIA DE DATOS</label>
+      </div>
+      <div class="course" data-code="IMT2230" data-prereq="MAT1610,IMT2210">
+        <input type="checkbox" id="IMT2230" />
+        <div class="custom-checkbox"></div>
+        <label for="IMT2230">[IMT2230] ÁLGEBRA LINEAL AVANZADA Y MODELAMIENTO</label>
+      </div>
+      <div class="course" data-code="ETI195" data-prereq="IIC2233,IMT2200">
+        <input type="checkbox" id="ETI195" />
+        <div class="custom-checkbox"></div>
+        <label for="ETI195">[ETI195] ÉTICA PARA CIENCIA DE DATOS Y ESTADÍSTICA</label>
+      </div>
+      <div class="course" data-code="IIC1253" data-prereq="IMT2210">
+        <input type="checkbox" id="IIC1253" />
+        <div class="custom-checkbox"></div>
+        <label for="IIC1253">[IIC1253] MATEMÁTICAS DISCRETAS</label>
+      </div>
+      <div class="course" data-code="OFG3" data-prereq="">
+        <input type="checkbox" id="OFG3" />
+        <div class="custom-checkbox"></div>
+        <label for="OFG3">OFG</label>
+      </div>
+    </section>
+
+    <!-- SEMESTRE 4 -->
+    <section class="semester" data-semester="4">
+      <h2>4TO SEMESTRE</h2>
+      <div class="course" data-code="EYP1025" data-prereq="IMT2220,IMT2230">
+        <input type="checkbox" id="EYP1025" />
+        <div class="custom-checkbox"></div>
+        <label for="EYP1025">[EYP1025] MODELOS PROBABILÍSTICOS</label>
+      </div>
+      <div class="course" data-code="IC2133" data-prereq="IIC2233,IIC1253">
+        <input type="checkbox" id="IC2133" />
+        <div class="custom-checkbox"></div>
+        <label for="IC2133">[IC2133] ESTRUCTURAS DE DATOS Y ALGORITMOS</label>
+      </div>
+      <div class="course" data-code="IC2413" data-prereq="IIC2233">
+        <input type="checkbox" id="IC2413" />
+        <div class="custom-checkbox"></div>
+        <label for="IC2413">[IC2413] BASES DE DATOS</label>
+      </div>
+      <div class="course" data-code="IMT2250" data-prereq="IMT2220,IMT2210">
+        <input type="checkbox" id="IMT2250" />
+        <div class="custom-checkbox"></div>
+        <label for="IMT2250">[IMT2250] OPTIMIZACIÓN PARA CIENCIA DE DATOS</label>
+      </div>
+      <div class="course" data-code="OFG4" data-prereq="">
+        <input type="checkbox" id="OFG4" />
+        <div class="custom-checkbox"></div>
+        <label for="OFG4">OFG</label>
+      </div>
+    </section>
+
+    <!-- SEMESTRE 5 -->
+    <section class="semester" data-semester="5">
+      <h2>5TO SEMESTRE</h2>
+      <div class="course" data-code="EYP2114" data-prereq="EYP1025">
+        <input type="checkbox" id="EYP2114" />
+        <div class="custom-checkbox"></div>
+        <label for="EYP2114">[EYP2114] INFERENCIA ESTADÍSTICA</label>
+      </div>
+      <div class="course" data-code="IIC2613" data-prereq="EYP1025,IIC2233">
+        <input type="checkbox" id="IIC2613" />
+        <div class="custom-checkbox"></div>
+        <label for="IIC2613">[IIC2613] INTELIGENCIA ARTIFICIAL</label>
+      </div>
+      <div class="course" data-code="LIC2440" data-prereq="IC2413,IC2133">
+        <input type="checkbox" id="LIC2440" />
+        <div class="custom-checkbox"></div>
+        <label for="LIC2440">[LIC2440] PROCESAMIENTO DATOS MASIVOS</label>
+      </div>
+      <div class="course" data-code="OPR_MINOR" data-prereq="">
+        <input type="checkbox" id="OPR_MINOR" />
+        <div class="custom-checkbox"></div>
+        <label for="OPR_MINOR">OPR O MINOR</label>
+      </div>
+      <div class="course" data-code="OFG5" data-prereq="">
+        <input type="checkbox" id="OFG5" />
+        <div class="custom-checkbox"></div>
+        <label for="OFG5">OFG</label>
+      </div>
+    </section>
+
+    <!-- SEMESTRE 6 -->
+    <section class="semester" data-semester="6">
+      <h2>6TO SEMESTRE</h2>
+      <div class="course" data-code="EYP2101" data-prereq="EYP2114">
+        <input type="checkbox" id="EYP2101" />
+        <div class="custom-checkbox"></div>
+        <label for="EYP2101">[EYP2101] PROCESOS ESTOCÁSTICOS APLICADOS</label>
+      </div>
+      <div class="course" data-code="EYP2301" data-prereq="EYP2114">
+        <input type="checkbox" id="EYP2301" />
+        <div class="custom-checkbox"></div>
+        <label for="EYP2301">[EYP2301] ANÁLISIS DE REGRESIÓN</label>
+      </div>
+      <div class="course" data-code="C2026" data-prereq="IC1103">
+        <input type="checkbox" id="C2026" />
+        <div class="custom-checkbox"></div>
+        <label for="C2026">[C2026] VISUALIZACIÓN DE INFORMACIÓN</label>
+      </div>
+      <div class="course" data-code="IIC2433" data-prereq="IC1103,EYP1025,IMT2210">
+        <input type="checkbox" id="IIC2433" />
+        <div class="custom-checkbox"></div>
+        <label for="IIC2433">[IIC2433] MINERÍA DE DATOS</label>
+      </div>
+      <div class="course" data-code="OFG6" data-prereq="">
+        <input type="checkbox" id="OFG6" />
+        <div class="custom-checkbox"></div>
+        <label for="OFG6">OFG</label>
+      </div>
+    </section>
+
+    <!-- SEMESTRE 7 -->
+    <section class="semester" data-semester="7">
+      <h2>7MO SEMESTRE</h2>
+      <div class="course" data-code="EYP2111" data-prereq="EYP2101">
+        <input type="checkbox" id="EYP2111" />
+        <div class="custom-checkbox"></div>
+        <label for="EYP2111">[EYP2111] SIMULACIÓN</label>
+      </div>
+      <div class="course" data-code="EYP2801" data-prereq="EYP2114">
+        <input type="checkbox" id="EYP2801" />
+        <div class="custom-checkbox"></div>
+        <label for="EYP2801">[EYP2801] MÉTODOS BAYESIANOS</label>
+      </div>
+      <div class="course" data-code="IMT2260" data-prereq="EYP2114,LIC2440,IMT2250">
+        <input type="checkbox" id="IMT2260" />
+        <div class="custom-checkbox"></div>
+        <label for="IMT2260">[IMT2260] TEORÍA DE APRENDIZAJE AUTOMÁTICO</label>
+      </div>
+      <div class="course" data-code="OPR_MINOR7" data-prereq="">
+        <input type="checkbox" id="OPR_MINOR7" />
+        <div class="custom-checkbox"></div>
+        <label for="OPR_MINOR7">OPR O MINOR</label>
+      </div>
+      <div class="course" data-code="OFG7" data-prereq="">
+        <input type="checkbox" id="OFG7" />
+        <div class="custom-checkbox"></div>
+        <label for="OFG7">OFG</label>
+      </div>
+    </section>
+
+    <!-- SEMESTRE 8 -->
+    <section class="semester" data-semester="8">
+      <h2>8VO SEMESTRE</h2>
+      <div class="course" data-code="IMT2270" data-prereq="EYP2801,IMT2260,IMT2250,ETI195">
+        <input type="checkbox" id="IMT2270" />
+        <div class="custom-checkbox"></div>
+        <label for="IMT2270">[IMT2270] PROYECTO DE GRADUACIÓN</label>
+      </div>
+      <div class="course" data-code="OPR_MINOR8" data-prereq="">
+        <input type="checkbox" id="OPR_MINOR8" />
+        <div class="custom-checkbox"></div>
+        <label for="OPR_MINOR8">OPR O MINOR</label>
+      </div>
+      <div class="course" data-code="OPR_MINOR8b" data-prereq="">
+        <input type="checkbox" id="OPR_MINOR8b" />
+        <div class="custom-checkbox"></div>
+        <label for="OPR_MINOR8b">OPR O MINOR</label>
+      </div>
+      <div class="course" data-code="OPR_MINOR8c" data-prereq="">
+        <input type="checkbox" id="OPR_MINOR8c" />
+        <div class="custom-checkbox"></div>
+        <label for="OPR_MINOR8c">OPR O MINOR</label>
+      </div>
+      <div class="course" data-code="OFG8" data-prereq="">
+        <input type="checkbox" id="OFG8" />
+        <div class="custom-checkbox"></div>
+        <label for="OFG8">OFG</label>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="footer-note">
+    * Los OFG y OPR/MINOR siempre están desbloqueados <br />
+    * Los ramos solo se pueden marcar si están desbloqueados según prerequisitos
+  </div>
+
+<script>
+  (() => {
+    // Parse prereq string to array
+    function parsePrereq(str) {
+      if (!str) return [];
+      return str.split(',').map(s => s.trim()).filter(s => s);
+    }
+
+    // Chequea si todos los prereqs están aprobados
+    function prereqsMet(prereqs, approved) {
+      return prereqs.every(p => approved.has(p));
+    }
+
+    // Guardar en localStorage
+    function saveProgress(approved) {
+      localStorage.setItem('mallaApproved', JSON.stringify(Array.from(approved)));
+    }
+
+    // Cargar de localStorage
+    function loadProgress() {
+      let saved = localStorage.getItem('mallaApproved');
+      if (!saved) return new Set();
+      try {
+        return new Set(JSON.parse(saved));
+      } catch {
+        return new Set();
+      }
+    }
+
+    const courses = document.querySelectorAll('.course');
+    let approved = loadProgress();
+
+    // Activa o desactiva checkbox según prereq
+    function refreshUI() {
+      courses.forEach(course => {
+        const checkbox = course.querySelector('input[type=checkbox]');
+        const code = course.dataset.code;
+        const prereqs = parsePrereq(course.dataset.prereq);
+
+        // OFG y OPR/MINOR siempre desbloqueados
+        if (code.startsWith('OFG') || code.startsWith('OPR_MINOR')) {
+          checkbox.disabled = false;
+          course.classList.remove('locked');
+          return;
+        }
+
+        // Si prereqs NO están aprobados, bloqueo
+        if (!prereqsMet(prereqs, approved)) {
+          checkbox.disabled = true;
+          course.classList.add('locked');
+          // Auto descheck si estaba tildado pero ahora no debería
+          if (checkbox.checked) {
+            checkbox.checked = false;
+            approved.delete(code);
+          }
+        } else {
+          checkbox.disabled = false;
+          course.classList.remove('locked');
+        }
+      });
+    }
+
+    // Inicializar estado checkbox según aprobado
+    courses.forEach(course => {
+      const code = course.dataset.code;
+      const checkbox = course.querySelector('input[type=checkbox]');
+      checkbox.checked = approved.has(code);
+
+      checkbox.addEventListener('change', () => {
+        if (checkbox.checked) {
+          approved.add(code);
+        } else {
+          approved.delete(code);
+        }
+        saveProgress(approved);
+        refreshUI();
+      });
+    });
+
+    refreshUI();
+
+  })();
+</script>
 </body>
 </html>
