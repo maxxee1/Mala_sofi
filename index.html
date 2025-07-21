@@ -1,29 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Malla Interactiva Ciencia de Datos PUC</title>
-<link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Malla Interactiva</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-<h1>Malla Interactiva Horizontal 🔥💀</h1>
-
-<div class="malla-container">
-
-  <div id="malla" class="malla"></div>
-
-  <aside class="info-panel">
-    <h3>Info del ramo</h3>
-    <div id="info">
-      <p>Pasa el cursor sobre un ramo para ver prerequisitos y qué desbloquea 🔍</p>
-    </div>
-    <button id="reset-btn">Reiniciar Malla</button>
-  </aside>
-
-</div>
-
-<script src="malla.js"></script>
+  <div class="container">
+    <svg class="connections"></svg>
+    <div class="grid" id="grid"></div>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
