@@ -1,157 +1,156 @@
-const malla = {
-  "1ER SEMESTRE": [
-    { codigo: "IC1103", nombre: "INTRODUCCIÓN A LA PROGRAMACIÓN" },
-    { codigo: "MAT1107", nombre: "INTRODUCCIÓN AL CÁLCULO" },
-    { codigo: "MAT1207", nombre: "INTRODUCCIÓN AL ÁLGEBRA Y GEOMETRÍA" },
-    { codigo: "MAT0007", nombre: "TALLER DE MATEMÁTICAS PARA ESTADÍSTICA" },
-    { codigo: "OFG1", nombre: "OFG (FIL2001)" },
-    { codigo: "LIBRE1", nombre: "Ramo Libre" }
-  ],
-  "2DO SEMESTRE": [
-    { codigo: "IIC2233", nombre: "PROGRAMACIÓN AVANZADA", prereqs: ["IC1103"] },
-    { codigo: "MAT1610", nombre: "CÁLCULO I", prereqs: ["MAT1107"] },
-    { codigo: "IMT2210", nombre: "ÁLGEBRA LINEAL PARA CIENCIA DE DATOS", prereqs: ["IC1103", "MAT1107", "MAT1207"] },
-    { codigo: "IMT2200", nombre: "INTRODUCCIÓN A CIENCIA DE DATOS", prereqs: ["IC1103", "MAT1207"] },
-    { codigo: "OFG2", nombre: "OFG (TEOLÓGICO)" },
-    { codigo: "LIBRE2", nombre: "Ramo Libre" }
-  ],
-  "3ER SEMESTRE": [
-    { codigo: "IMT2220", nombre: "CÁLCULO PARA CIENCIA DE DATOS", prereqs: ["MAT1610"] },
-    { codigo: "IMT2230", nombre: "ÁLGEBRA LINEAL AVANZADA Y MODELAMIENTO", prereqs: ["MAT1610", "IMT2210"] },
-    { codigo: "ETI195", nombre: "ÉTICA PARA CIENCIA DE DATOS Y ESTADÍSTICA", prereqs: ["IIC2233", "IMT2200"] },
-    { codigo: "IIC1253", nombre: "MATEMÁTICAS DISCRETAS", prereqs: ["IMT2210"] },
-    { codigo: "OFG3", nombre: "OFG" },
-    { codigo: "LIBRE3", nombre: "Ramo Libre" }
-  ],
-  "4TO SEMESTRE": [
-    { codigo: "EYP1025", nombre: "MODELOS PROBABILÍSTICOS", prereqs: ["IMT2220", "IMT2230"] },
-    { codigo: "IC2133", nombre: "ESTRUCTURAS DE DATOS Y ALGORITMOS", prereqs: ["IIC2233", "IIC1253"] },
-    { codigo: "IC2413", nombre: "BASES DE DATOS", prereqs: ["IIC2233"] },
-    { codigo: "IMT2250", nombre: "OPTIMIZACIÓN PARA CIENCIA DE DATOS", prereqs: ["IMT2220", "IMT2210"] },
-    { codigo: "OFG4", nombre: "OFG" },
-    { codigo: "LIBRE4", nombre: "Ramo Libre" }
-  ],
-  "5TO SEMESTRE": [
-    { codigo: "EYP2114", nombre: "INFERENCIA ESTADÍSTICA", prereqs: ["EYP1025"] },
-    { codigo: "IIC2613", nombre: "INTELIGENCIA ARTIFICIAL", prereqs: ["EYP1025", "IIC2233"] },
-    { codigo: "LIC2440", nombre: "PROCESAMIENTO DATOS MASIVOS", prereqs: ["IC2413", "IC2133"] },
-    { codigo: "OPR1", nombre: "OPR o MINOR" },
-    { codigo: "OFG5", nombre: "OFG" },
-    { codigo: "LIBRE5", nombre: "Ramo Libre" }
-  ],
-  "6TO SEMESTRE": [
-    { codigo: "EYP2101", nombre: "PROCESOS ESTOCÁSTICOS APLICADOS", prereqs: ["EYP2114"] },
-    { codigo: "EYP2301", nombre: "ANÁLISIS DE REGRESIÓN", prereqs: ["EYP2114"] },
-    { codigo: "C2026", nombre: "VISUALIZACIÓN DE INFORMACIÓN", prereqs: ["IC1103"] },
-    { codigo: "IIC2433", nombre: "MINERÍA DE DATOS", prereqs: ["IC1103", "EYP1025", "IMT2210"] },
-    { codigo: "OFG6", nombre: "OFG" },
-    { codigo: "LIBRE6", nombre: "Ramo Libre" }
-  ],
-  "7MO SEMESTRE": [
-    { codigo: "EYP2111", nombre: "SIMULACIÓN", prereqs: ["EYP2101"] },
-    { codigo: "EYP2801", nombre: "MÉTODOS BAYESIANOS", prereqs: ["EYP2114"] },
-    { codigo: "IMT2260", nombre: "TEORÍA DE APRENDIZAJE AUTOMÁTICO", prereqs: ["EYP2114", "LIC2440", "IMT2250"] },
-    { codigo: "OPR2", nombre: "OPR o MINOR" },
-    { codigo: "OFG7", nombre: "OFG" },
-    { codigo: "LIBRE7", nombre: "Ramo Libre" }
-  ],
-  "8VO SEMESTRE": [
-    { codigo: "IMT2270", nombre: "PROYECTO DE GRADUACIÓN", prereqs: ["EYP2801", "IMT2260", "IMT2250", "ETI195"] },
-    { codigo: "OPR3", nombre: "OPR o MINOR" },
-    { codigo: "OPR4", nombre: "OPR o MINOR" },
-    { codigo: "OPR5", nombre: "OPR o MINOR" },
-    { codigo: "OFG8", nombre: "OFG" },
-    { codigo: "LIBRE8", nombre: "Ramo Libre" }
-  ]
-};
+// malla.js
 
-const completados = new Set(JSON.parse(localStorage.getItem("ramos-completados")) || []);
+// Datos de la malla: cada ramo con código, nombre, prereqs (códigos) y semestre
+const RAMOS = [
+  // 1er semestre
+  { code: "IC1103", name: "INTRODUCCIÓN A LA PROGRAMACIÓN", prereq: [], sem: 1 },
+  { code: "MAT1107", name: "INTRODUCCIÓN AL CÁLCULO", prereq: [], sem: 1 },
+  { code: "MAT1207", name: "INTRODUCCIÓN AL ÁLGEBRA Y GEOMETRÍA", prereq: [], sem: 1 },
+  { code: "MAT0007", name: "TALLER DE MATEMÁTICAS PARA ESTADISTICA", prereq: [], sem: 1 },
+  { code: "OFG_FIL2001", name: "OFG (FIL2001)", prereq: [], sem: 1 },
 
+  // 2do semestre
+  { code: "IIC2233", name: "PROGRAMACIÓN AVANZADA", prereq: ["IC1103"], sem: 2 },
+  { code: "MAT1610", name: "CÁLCULO I", prereq: ["MAT1107"], sem: 2 },
+  { code: "IMT2210", name: "ÁLGEBRA LINEAL PARA CIENCIA DE DATOS", prereq: ["IC1103", "MAT1610", "MAT1207"], sem: 2 },
+  { code: "IMT2200", name: "INTRODUCCIÓN A CIENCIA DE DATOS", prereq: ["IC1103", "MAT1207"], sem: 2 },
+  { code: "OFG_TEOLOGICO", name: "OFG (TEOLOGICO)", prereq: [], sem: 2 },
+
+  // 3er semestre
+  { code: "IMT2220", name: "CÁLCULO PARA CIENCIA DE DATOS", prereq: ["MAT1610"], sem: 3 },
+  { code: "IMT2230", name: "ÁLGEBRA LINEAL AVANZADA Y MODELAMIENTO", prereq: ["MAT1610", "IMT2210"], sem: 3 },
+  { code: "ETI195", name: "ÉTICA PARA CIENCIA DE DATOS Y ESTADÍSTICA", prereq: ["IIC2233", "IMT2200"], sem: 3 },
+  { code: "IIC1253", name: "MATEMÁTICAS DISCRETAS", prereq: ["IMT2210"], sem: 3 },
+  { code: "OFG3", name: "OFG", prereq: [], sem: 3 },
+
+  // 4to semestre
+  { code: "EYP1025", name: "MODELOS PROBABILÍSTICOS", prereq: ["IMT2220", "IMT2230"], sem: 4 },
+  { code: "IC2133", name: "ESTRUCTURAS DE DATOS Y ALGORITMOS", prereq: ["IIC2233", "IIC1253"], sem: 4 },
+  { code: "IC2413", name: "BASES DE DATOS", prereq: ["IIC2233"], sem: 4 },
+  { code: "IMT2250", name: "OPTIMIZACIÓN PARA CIENCIA DE DATOS", prereq: ["IMT2220", "IMT2210"], sem: 4 },
+  { code: "OFG4", name: "OFG", prereq: [], sem: 4 },
+
+  // 5to semestre
+  { code: "EYP2114", name: "INFERENCIA ESTADÍSTICA", prereq: ["EYP1025"], sem: 5 },
+  { code: "IIC2613", name: "INTELIGENCIA ARTIFICIAL", prereq: ["EYP1025", "IIC2233"], sem: 5 },
+  { code: "LIC2440", name: "PROCESAMIENTO DATOS MASIVOS", prereq: ["IC2413", "IC2133"], sem: 5 },
+  { code: "OPR_MINOR", name: "OPR O MINOR", prereq: [], sem: 5 },
+  { code: "OFG5", name: "OFG", prereq: [], sem: 5 },
+
+  // 6to semestre
+  { code: "EYP2101", name: "PROCESOS ESTOCÁSTICOS APLICADOS", prereq: ["EYP2114"], sem: 6 },
+  { code: "EYP2301", name: "ANÁLISIS DE REGRESIÓN", prereq: ["EYP2114"], sem: 6 },
+  { code: "C2026", name: "VISUALIZACIÓN DE INFORMACIÓN", prereq: ["IC1103"], sem: 6 },
+  { code: "IIC2433", name: "MINERÍA DE DATOS", prereq: ["IC1103", "EYP1025", "IMT2210"], sem: 6 },
+  { code: "OFG6", name: "OFG", prereq: [], sem: 6 },
+
+  // 7mo semestre
+  { code: "EYP2111", name: "SIMULACIÓN", prereq: ["EYP2101"], sem: 7 },
+  { code: "EYP2801", name: "MÉTODOS BAYESIANOS", prereq: ["EYP2114"], sem: 7 },
+  { code: "IMT2260", name: "TEORÍA DE APRENDIZAJE AUTOMÁTICO", prereq: ["EYP2114", "LIC2440", "IMT2250"], sem: 7 },
+  { code: "OPR_MINOR7", name: "OPR O MINOR", prereq: [], sem: 7 },
+  { code: "OFG7", name: "OFG", prereq: [], sem: 7 },
+
+  // 8vo semestre
+  { code: "IMT2270", name: "PROYECTO DE GRADUACIÓN", prereq: ["EYP2801", "IMT2260", "IMT2250", "ETI195"], sem: 8 },
+  { code: "OPR_MINOR8", name: "OPR O MINOR", prereq: [], sem: 8 },
+  { code: "OPR_MINOR8b", name: "OPR O MINOR", prereq: [], sem: 8 },
+  { code: "OPR_MINOR8c", name: "OPR O MINOR", prereq: [], sem: 8 },
+  { code: "OFG8", name: "OFG", prereq: [], sem: 8 },
+];
+
+// Map para acceso rápido por código
+const ramosMap = {};
+RAMOS.forEach(r => ramosMap[r.code] = r);
+
+// Mapa inverso para saber qué ramos desbloquea un ramo dado
+const desbloqueaMap = {};
+RAMOS.forEach(r => {
+  r.prereq.forEach(pr => {
+    if (!desbloqueaMap[pr]) desbloqueaMap[pr] = [];
+    desbloqueaMap[pr].push(r.code);
+  });
+});
+
+// LocalStorage key
+const STORAGE_KEY = 'malla_interactiva_aprobados';
+
+// Estado aprobado
+let aprobados = new Set();
+
+// Renderiza la malla en columnas (semestres)
 function renderMalla() {
-  const container = document.getElementById("malla");
-  container.innerHTML = "";
+  const mallaDiv = document.getElementById('malla');
+  mallaDiv.innerHTML = '';
 
-  Object.entries(malla).forEach(([semestre, ramos]) => {
-    const semDiv = document.createElement("div");
-    semDiv.className = "semestre";
-    const h2 = document.createElement("h2");
-    h2.textContent = semestre;
+  // Crear columna por semestre
+  for(let s=1; s<=8; s++) {
+    const semDiv = document.createElement('section');
+    semDiv.classList.add('semester');
+    semDiv.dataset.semester = s;
+    const h2 = document.createElement('h2');
+    h2.textContent = s + (s === 1 ? 'ER' : s === 2 ? 'DO' : s === 3 ? 'ER' : s === 4 ? 'TO' : s === 7 ? 'MO' : s === 8 ? 'VO' : 'TO') + ' SEMESTRE';
     semDiv.appendChild(h2);
 
-    ramos.forEach(ramo => {
-      const div = document.createElement("div");
-      div.className = "ramo";
-      div.id = ramo.codigo;
-      div.textContent = `[${ramo.codigo}] ${ramo.nombre}`;
+    // Cursos del semestre
+    RAMOS.filter(r => r.sem === s).forEach(ramo => {
+      const div = document.createElement('div');
+      div.classList.add('course');
+      div.dataset.code = ramo.code;
+      div.dataset.prereq = ramo.prereq.join(',');
+      div.title = ramo.code + ": " + ramo.name;
 
-      if (!ramo.prereqs || ramo.prereqs.every(req => completados.has(req))) {
-        div.onclick = () => toggleRamo(ramo.codigo);
-      } else {
-        div.style.opacity = 0.5;
-        div.title = `Bloqueado. Prereqs: ${ramo.prereqs.join(", ")}`;
-      }
+      // Checkbox oculto
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.id = ramo.code;
 
-      if (completados.has(ramo.codigo)) {
-        div.classList.add("tachado");
-      }
+      // Label con texto
+      const label = document.createElement('label');
+      label.setAttribute('for', ramo.code);
+      label.textContent = `[${ramo.code}] ${ramo.name}`;
+
+      // Caja custom para el check
+      const customBox = document.createElement('div');
+      customBox.classList.add('custom-checkbox');
+
+      div.appendChild(checkbox);
+      div.appendChild(customBox);
+      div.appendChild(label);
 
       semDiv.appendChild(div);
     });
 
-    container.appendChild(semDiv);
-  });
-
-  renderResetButton(); // ✨ renderizamos el botoncito del caos
-}
-
-function toggleRamo(codigo) {
-  if (completados.has(codigo)) {
-    completados.delete(codigo);
-  } else {
-    completados.add(codigo);
+    mallaDiv.appendChild(semDiv);
   }
-  localStorage.setItem("ramos-completados", JSON.stringify([...completados]));
-  renderMalla();
 }
 
-function renderResetButton() {
-  if (document.getElementById("reset-btn")) return; // no lo dupliquemos plis
-
-  const btn = document.createElement("button");
-  btn.id = "reset-btn";
-  btn.textContent = "🔥 Reiniciar todo desde cero";
-  btn.style.position = "fixed";
-  btn.style.bottom = "20px";
-  btn.style.right = "20px";
-  btn.style.padding = "12px 20px";
-  btn.style.fontSize = "16px";
-  btn.style.borderRadius = "8px";
-  btn.style.border = "none";
-  btn.style.backgroundColor = "#e11d48";
-  btn.style.color = "white";
-  btn.style.cursor = "pointer";
-  btn.style.boxShadow = "0 4px 10px rgba(0,0,0,0.3)";
-  btn.style.zIndex = "999";
-
-  btn.addEventListener("mouseenter", () => {
-    btn.style.backgroundColor = "#be123c";
-    btn.style.transform = "scale(1.05)";
-  });
-
-  btn.addEventListener("mouseleave", () => {
-    btn.style.backgroundColor = "#e11d48";
-    btn.style.transform = "scale(1)";
-  });
-
-  btn.addEventListener("click", () => {
-    const confirmacion = confirm("¿Estás segurx? Esto es como formatear tu cora y tu malla. 😭");
-    if (confirmacion) {
-      localStorage.clear();
-      location.reload();
-    }
-  });
-
-  document.body.appendChild(btn);
+// Guarda progreso en localStorage
+function saveProgress() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(Array.from(aprobados)));
 }
 
-renderMalla();
+// Carga progreso desde localStorage
+function loadProgress() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (!saved) return new Set();
+  try {
+    return new Set(JSON.parse(saved));
+  } catch {
+    return new Set();
+  }
+}
+
+// Comprueba si todos los prereqs de un ramo están aprobados
+function prereqsMet(prereq) {
+  return prereq.every(p => aprobados.has(p));
+}
+
+// Actualiza UI: bloquea/desbloquea ramos y marca aprobados
+function updateUI() {
+  document.querySelectorAll('.course').forEach(div => {
+    const code = div.dataset.code;
+    const prereq = div.dataset.prereq ? div.dataset.prereq.split(',').filter(s => s) : [];
+
+    // OFG y OPR/MINOR siempre desbloqueados
+    if (code.startsWith('OFG') || code.startsWith('OPR_MINOR'))
