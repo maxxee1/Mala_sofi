@@ -1,116 +1,248 @@
-/* RESET BASICO */
+/* RESET Y BASE */
 * {
   box-sizing: border-box;
-  margin: 0; padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
 body {
-  background: #f7f9f9;
-  color: #222;
+  margin: 0;
+  background: #111;
+  color: #eee;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   padding: 1rem;
-  display: flex;
-  justify-content: center;
-  min-height: 100vh;
-  align-items: flex-start;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
-#malla {
-  width: 100%;
-  max-width: 700px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+h1 {
+  text-align: center;
+  color: #ffde59;
+  text-shadow: 0 0 8px #ffde59aa;
+  margin-bottom: 1rem;
+}
+
+/* CONTENEDOR FLEX HORIZONTAL */
+.malla-container {
+  display: flex;
+  gap: 1rem;
+  max-width: 100vw;
   overflow-x: auto;
+  padding-bottom: 1rem;
 }
 
-/* TITULOS SEMESTRE */
-.semestre {
-  border-bottom: 2px solid #3D5300;
-  padding: 0.5rem 1rem 0.5rem 1rem;
-  background-color: #ABBA7C;
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: #3D5300;
-  user-select: none;
-}
-
-/* GRID PARA RAMOS */
-.ramo {
-  padding: 10px 14px;
-  border-bottom: 1px solid #eee;
-  cursor: pointer;
-  font-size: 0.9rem;
-  color: #333;
+/* MALLA EN FILA DE COLUMNAS */
+.malla {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  transition: background-color 0.25s ease;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+}
+
+/* CADA SEMESTRE ES UNA COLUMNA */
+.semester {
+  min-width: 150px;
+  background: #222;
+  border: 2px solid #3D5300;
+  border-radius: 12px;
+  padding: 0.5rem 0.8rem;
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ABBA7C transparent;
+}
+
+/* SCROLLBAR PARA FIREFOX */
+.semester::-webkit-scrollbar {
+  width: 6px;
+}
+.semester::-webkit-scrollbar-thumb {
+  background-color: #ABBA7C;
+  border-radius: 3px;
+}
+
+/* TÍTULO SEMESTRE */
+.semester h2 {
+  font-size: 1.15rem;
+  margin-bottom: 0.8rem;
+  color: #FFE31A;
+  text-align: center;
+  text-shadow: 0 0 5px #FFE31Aaa;
+}
+
+/* CADA CURSO */
+.course {
+  background: #1b1b1b;
+  border-radius: 8px;
+  padding: 0.5rem 0.7rem;
+  margin-bottom: 0.4rem;
+  cursor: pointer;
   user-select: none;
+  position: relative;
+  transition: background-color 0.3s ease;
+  border: 2px solid transparent;
 }
 
-.ramo:hover:not(.bloqueado) {
+/* BORDER SI ESTÁ APROBADO */
+.course.approved {
+  border-color: #FFE31A;
+  background-color: #333a00;
+}
+
+/* CHECKBOX INVISIBLE */
+.course input[type="checkbox"] {
+  display: none;
+}
+
+/* CAJA CUSTOM CHECK */
+.custom-checkbox {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  border: 3px solid #ABBA7C;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+}
+
+/* CHECK VISUAL */
+.course.approved .custom-checkbox {
   background-color: #FFE31A;
-  color: #3D5300;
-  font-weight: 600;
+  border-color: #FFE31A;
 }
 
-/* Tachado para completados */
-.tachado {
-  text-decoration: line-through;
-  opacity: 0.6;
-  color: #555;
+.course.approved .custom-checkbox::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 3px;
+  width: 8px;
+  height: 15px;
+  border: solid #111;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
 }
 
-/* Bloqueados con menos opacidad y cursor no pointer */
-.bloqueado {
+/* LABEL */
+.course label {
+  margin-left: 36px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #ABBA7C;
+  display: block;
+  line-height: 1.1;
+}
+
+/* LOCKED */
+.course.locked {
   opacity: 0.4;
   cursor: not-allowed;
-  font-style: italic;
-  color: #999;
 }
 
-/* CHECKBOX SIMPLIFICADO */
-.ramo input[type="checkbox"] {
-  margin-left: 10px;
-  transform: scale(1.3);
-  cursor: pointer;
+.course.locked label {
+  color: #555;
+  text-decoration: line-through;
 }
 
-/* BOTON RESET FIJO */
+/* FLECHAS EN HOVER - INFO */
+
+.course:hover::before,
+.course:hover::after {
+  content: "";
+  position: absolute;
+  width: 0; 
+  height: 0; 
+  border-style: solid;
+}
+
+.course:hover::before {
+  /* Flecha que apunta a los que desbloquea */
+  border-width: 6px 10px 6px 0;
+  border-color: transparent #ffde59 transparent transparent;
+  right: -15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.course:hover::after {
+  /* Flecha que apunta a prereqs */
+  border-width: 6px 0 6px 10px;
+  border-color: transparent transparent transparent #ffde59;
+  left: -15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* INFO PANEL */
+
+.info-panel {
+  min-width: 250px;
+  max-width: 300px;
+  background: #222;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 0 10px #ffde59aa;
+  color: #eee;
+  flex-shrink: 0;
+}
+
+.info-panel h3 {
+  margin-top: 0;
+  color: #ffde59;
+  text-align: center;
+  text-shadow: 0 0 8px #ffde59aa;
+}
+
+#info p {
+  font-size: 0.95rem;
+  line-height: 1.3;
+  min-height: 5rem;
+}
+
+#info ul {
+  padding-left: 1.2rem;
+  margin-top: 0.3rem;
+  margin-bottom: 0.7rem;
+}
+
 #reset-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #e11d48;
-  color: white;
+  background-color: #3D5300;
+  color: #fff;
   border: none;
-  border-radius: 8px;
-  padding: 12px 20px;
+  border-radius: 6px;
+  width: 100%;
+  padding: 0.6rem;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-  transition: all 0.3s ease;
-  z-index: 9999;
-  user-select: none;
-}
-#reset-btn:hover {
-  background-color: #be123c;
-  transform: scale(1.05);
+  margin-top: 1rem;
+  font-size: 1rem;
+  transition: background-color 0.25s ease;
 }
 
-/* RESPONSIVE - PARA PANTALLAS CHIQUITAS */
-@media (max-width: 480px) {
-  .ramo {
-    font-size: 0.8rem;
-    padding: 8px 12px;
+#reset-btn:hover {
+  background-color: #ABBA7C;
+  color: #111;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 700px) {
+  .malla-container {
+    flex-direction: column;
   }
-  .semestre {
-    font-size: 1rem;
-    padding: 0.4rem 0.8rem;
+  .malla {
+    flex-wrap: wrap;
+    max-height: 350px;
+    overflow-y: auto;
   }
-  #reset-btn {
-    padding: 10px 15px;
-    font-size: 0.9rem;
+  .semester {
+    min-width: 45%;
+    max-height: none;
+    margin-bottom: 1rem;
+  }
+  .info-panel {
+    max-width: 100%;
+    margin-top: 1rem;
   }
 }
